@@ -29,7 +29,6 @@ async def on_message(message):
     message_content = message.content.lower()
     if "!quote" in message_content:
         symbol = message_content.split(' ')[1]
-        print(symbol)
         quote = api.quote_stock(symbol.upper())
         await message.channel.send(quote)
 
