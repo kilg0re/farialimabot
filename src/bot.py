@@ -1,7 +1,9 @@
-import os
 import random
+import os
 import discord
 from dotenv import load_dotenv
+
+import api
 
 # get bot and guild tokens from environment
 load_dotenv()
@@ -25,8 +27,10 @@ async def on_ready():
 @client.event
 async def on_message(message):
     message_content = message.content.lower()
-    if "!flip a coin" in message_content:
-        result = {0: 'heads', 1: 'tails'}[random.randint(0, 1)]
-        await message.channel.send(result)
+    if "!quote" in message_content:
+        symbol = message_content.split(' ')[1]
+        print(symbol)
+        quote = api.quote_stock(symbol.upper())
+        await message.channel.send(quote)
 
 client.run(token)
